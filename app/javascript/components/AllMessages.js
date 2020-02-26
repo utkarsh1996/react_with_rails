@@ -1,13 +1,28 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Card } from "semantic-ui-react"
+import { Card, Button } from "semantic-ui-react"
 
-export const AllMessages = (props) => {
-    var messages = props.messages.map((message) => {
+export class AllMessages extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      editMessage: false
+    }
+  }
+  render() {
+    var messages = this.props.messages.map((message) => {
       return (
         <Card>
           <Card.Content header={message.title} />
             <Card.Content description={message.message} />
+            <Card.Content extra>
+           <div className='ui two buttons'>
+           <Button basic color='green'>{this.state.editMessage?'Submit' : 'Edit'}</Button>
+           <Button onClick={()=> this.props.handleDelete(message.id)} basic color='red'>
+                Delete
+           </Button>
+           </div>
+            </Card.Content>
         </Card>
       )
     })
@@ -16,6 +31,7 @@ export const AllMessages = (props) => {
       {messages}
     </div>
     );
+}
 }
 
 export default AllMessages

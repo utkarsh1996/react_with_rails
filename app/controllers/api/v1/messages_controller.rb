@@ -7,6 +7,7 @@ module Api
       end
       def create
         message = Message.create(message_params)
+        message.save
         render json: message
       end
       def destroy
@@ -19,7 +20,7 @@ module Api
       end
       private
         def message_params
-          params.require(:message).permit(:title, :message)
+          params.require(:message).permit(:title, :message, :user_id)
         end
     end
   end
