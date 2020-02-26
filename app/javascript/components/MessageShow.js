@@ -13,6 +13,8 @@ export class MessageShow extends React.Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.addNewMessage = this.addNewMessage.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
+    this.updateMessage = this.updateMessage.bind(this)
   }
   handleFormSubmit(title, message) {
     console.log(title, message)
@@ -45,6 +47,24 @@ export class MessageShow extends React.Component {
       messages: this.state.newMessages
     })
   }
+  handleUpdate(message) {
+    fetch(`http://localhost:3000/api/v1/messages/${message.id}`,{
+      method: 'PUT',
+      body: JSON.stringify({message: message}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => {
+      this.updateMessage(message)
+    })
+  }
+  updateMessage(message) {
+    let newEditMessage = this.state.messages.filter((m) => m.id !== message.id)
+    newEditMessage.push(message)
+    this.setState({
+      messages: newEditMessage
+    })
+  }
   addNewMessage(message) {
     this.setState({
       messages: this.state.messages.concat(message)
@@ -64,7 +84,7 @@ export class MessageShow extends React.Component {
         <Header as='h3' dividing>
          My Message
         </Header>
-        <AllMessages messages = { this.state.messages} handleDelete = {this.handleDelete}/>
+        <AllMessages messages = { this.state.messages} handleDelete = {this.handleDelete} handleUpdate={this.handleUpdate}/>
         </div>
       </React.Fragment>
     );

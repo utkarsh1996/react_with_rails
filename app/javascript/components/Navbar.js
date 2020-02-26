@@ -16,11 +16,6 @@ export class Navbar extends React.Component {
         active={activeItem === 'Profile'}
         onClick={this.handleItemClick}
       />
-      <Menu.Item
-        name='All Messages'
-        active={activeItem === 'All Messages'}
-        onClick={this.handleItemClick}
-      /> 
       <Menu.Menu position='right'>
         <Menu.Item
           name='Logout'
