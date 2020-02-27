@@ -53,7 +53,7 @@ export class MessageShow extends React.Component {
       body: JSON.stringify({message: message}),
       headers: {
         'Content-Type': 'application/json'
-      }
+      } 
     }).then((response) => {
       this.updateMessage(message)
     })

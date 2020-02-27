@@ -1,11 +1,15 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Card, Button } from "semantic-ui-react"
+import { CreateComment } from './CreateComment'
+import { Redirect } from 'react-router-dom'
 export class Message extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      editable: false
+      editable: false,
+      redirect: false,
+      isCreateComment: false
     }
     this.handleEdit = this.handleEdit.bind(this)
   }
@@ -21,6 +25,11 @@ export class Message extends React.Component {
       editable: !this.state.editable
     })
   }
+  // callCreateComment = () => {
+  //   console.log('utkarsh')
+  //   return <Redirect to="/CreateComment" />
+
+  // }
   render() {
     let title = this.state.editable ?
       <input type="text" ref={input => this.title = input} defaultValue={this.props.message.title} /> :
@@ -30,25 +39,26 @@ export class Message extends React.Component {
       <h4>{this.props.message.message}</h4>
     return (
       <React.Fragment>
-        <Card.Content>
-          {title}
-        </Card.Content>
-        <Card.Content>
-          {message}
-        </Card.Content>
-        <Card.Content extra>
-          <div className='ui two buttons'>
-            <Button onClick={() => this.handleEdit()} basic color='green'>{this.state.editable ? 'Submit' : 'Edit'}</Button>
-            <Button onClick={() => this.props.handleDelete(this.props.message.id)} basic color='red'>
-              Delete
-           </Button>
-            {/* <Button basic color='blue'>Comment</Button> */}
-          </div>
-        </Card.Content>
-        <Card.Content>
-          <Button basic color='blue'>Comment</Button>
-        </Card.Content>
-        
+            <Card.Content>
+              {title}
+            </Card.Content>
+            <Card.Content>
+              {message}
+            </Card.Content>
+            <Card.Content extra>
+              <div className='ui two buttons'>
+                <Button onClick={() => this.handleEdit()} basic color='green'>{this.state.editable ? 'Submit' : 'Edit'}</Button>
+                <Button onClick={() => this.props.handleDelete(this.props.message.id)} basic color='red'>
+                  Delete
+              </Button>
+                {/* <Button basic color='blue'>Comment</Button> */}
+              </div>
+            </Card.Content>
+            <Card.Content>
+            <Button basic color='blue'>Comment</Button>
+              {/* <Button basic color='blue' onClick={this.callCreateComment}>Comment</Button> */}
+              {/* <button className="ui blue basic button" onClick={ ()=> callCreateComment() }>Comment</button> */}
+            </Card.Content>
       </React.Fragment>
     );
   }
