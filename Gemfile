@@ -32,6 +32,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'webpacker'
 gem 'react-rails'
 
+#for authentication
+gem 'knock'
+gem 'jwt'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

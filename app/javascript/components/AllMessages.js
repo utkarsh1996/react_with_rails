@@ -12,7 +12,7 @@ export const AllMessages = (props) => {
   })
   return (
     <div style = {{padding:"1%"}}>
-    {messages}
+    {messages.reverse()}
   </div>
   );
 }
