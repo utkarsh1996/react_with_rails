@@ -2,13 +2,13 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Card, Button } from "semantic-ui-react"
 import { CreateComment } from './CreateComment'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Switch } from 'react-router-dom'
+import {Route, Link, BrowserRouter as Router } from 'react-router-dom'
 export class Message extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       editable: false,
-      redirect: false,
       isCreateComment: false
     }
     this.handleEdit = this.handleEdit.bind(this)
@@ -25,11 +25,19 @@ export class Message extends React.Component {
       editable: !this.state.editable
     })
   }
-  // callCreateComment = () => {
-  //   console.log('utkarsh')
-  //   return <Redirect to="/CreateComment" />
-
-  // }
+  callCreateComment = () => {
+    console.log('routing');
+    <Router>
+      <ul>
+        <li>
+          <Link to="/CreateComment">CreateComment</Link>
+        </li>
+      </ul>
+      <Switch>
+      <Route exact path="/CreateComment" component={CreateComment}/>
+      </Switch>
+    </Router>
+  }
   render() {
     let title = this.state.editable ?
       <input type="text" ref={input => this.title = input} defaultValue={this.props.message.title} /> :
@@ -55,9 +63,8 @@ export class Message extends React.Component {
               </div>
             </Card.Content>
             <Card.Content>
-            <Button basic color='blue'>Comment</Button>
+            <Button basic color='blue' onClick={this.callCreateComment}>Comment</Button>
               {/* <Button basic color='blue' onClick={this.callCreateComment}>Comment</Button> */}
-              {/* <button className="ui blue basic button" onClick={ ()=> callCreateComment() }>Comment</button> */}
             </Card.Content>
       </React.Fragment>
     );
