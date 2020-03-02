@@ -1,13 +1,15 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Card, Button,Header, Icon, Comment, Form, Modal } from "semantic-ui-react"
+import { ShowComments } from './ShowComments'
 export class Message extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      comments: [],
       editable: false,
       isCreateComment: false,
-      comments: {}
+      formInputComment: null
     }
     this.handleEdit = this.handleEdit.bind(this)
   }
@@ -21,6 +23,26 @@ export class Message extends React.Component {
     }
     this.setState({
       editable: !this.state.editable
+    })
+  }
+  handleClick = () => {
+    console.log("working till here")
+    let comment = this.state.formInputComment.value
+    let body = JSON.stringify({ comment: { comment: comment, likes: 0, user_id: 1, message_id: this.props.message.id} })
+    fetch('http://localhost:3000/api/v1/comments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: body,
+    }).then((response) => {return response.json()})
+      .then((comment) => {
+        this.addNewComment(comment)
+      })
+  }
+  addNewComment(comment) {
+    this.setState({
+      comments: this.state.comments.concat(comment) 
     })
   }
   render() {
@@ -65,13 +87,22 @@ export class Message extends React.Component {
           <Modal.Content>
           <Comment.Group>
               <Header as='h4' dividing>Comment</Header>
-              <Comment>
+              {/* <Comment>
                 <Comment.Author>Author Name</Comment.Author>
                 <Comment.Text>Nice comment</Comment.Text>
-              </Comment>
+              </Comment> */}
+              {/* <ShowComments comments = {this.state.comments} /> */}
+              {
+                this.state.comments.map(comment => 
+                  <Comment>
+                    <Comment.Author>Author Name</Comment.Author>
+                <Comment.Text>{comment}</Comment.Text>
+                  </Comment>
+                  )
+              }
               <Form reply>
                 {/* <Form.TextArea /> */}
-                <textarea />
+                <textarea ref={input => this.state.formInputComment = input} />
               </Form>
             </Comment.Group>
           </Modal.Content>
