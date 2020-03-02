@@ -1,13 +1,5 @@
 import React from "react"
 import PropTypes from "prop-types"
-// export class ShowComments extends React.Component {
-//   render () {
-//     return (
-//       <React.Fragment>
-//       </React.Fragment>
-//     );
-//   }
-// }
 export const ShowComments = (props) => {
   var comments = props.comments.map((comment) => {
     return (

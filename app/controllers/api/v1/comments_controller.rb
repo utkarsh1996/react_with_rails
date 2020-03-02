@@ -4,7 +4,7 @@ module Api
             def index
                 comments = Comment.all
                 render json: comments
-              end
+            end
             def create
                 comment = Comment.create(comment_params)
                 comment.save
