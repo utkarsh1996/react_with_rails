@@ -27,6 +27,7 @@ export class Message extends React.Component {
   }
   handleClick = () => {
     console.log("working till here")
+    document.getElementById('commentadd').innerHTML = '';
     let comment = this.state.formInputComment.value
     let body = JSON.stringify({ comment: { comment: comment, likes: 0, user_id: 1, message_id: this.props.message.id} })
     fetch('http://localhost:3000/api/v1/comments', {
@@ -105,16 +106,17 @@ export class Message extends React.Component {
                   )
               } */}
               <ShowComments comments = {this.state.comments} message = {this.props.message}/>
-              <Form reply>
-                <textarea ref={input => this.state.formInputComment = input} />
+              <Form reply onSubmit={(e) => {e.target.reset();}}>
+                <textarea id="commentadd" ref={input => this.state.formInputComment = input} />
+                <Button primary width={2} onClick={this.handleClick}>Post Comment</Button>
               </Form>
             </Comment.Group>
           </Modal.Content>
-          <Modal.Actions>
+          {/* <Modal.Actions>
             <Button primary onClick={this.handleClick}>
               Post Comment <Icon name='chevron right' />
             </Button>
-          </Modal.Actions>
+          </Modal.Actions> */}
         </Modal>
       </React.Fragment>
     );
