@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_083918) do
+ActiveRecord::Schema.define(version: 2020_03_03_111850) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "comment"
@@ -37,6 +37,9 @@ ActiveRecord::Schema.define(version: 2020_02_27_083918) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone"
+    t.string "password_digest"
+    t.index ["phone"], name: "index_users_on_phone"
   end
 
   add_foreign_key "comments", "messages"
