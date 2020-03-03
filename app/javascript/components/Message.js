@@ -45,6 +45,13 @@ export class Message extends React.Component {
       comments: this.state.comments.concat(comment) 
     })
   }
+  componentDidMount() {
+    fetch('/api/v1/comments.json')
+        .then((response) => { return response.json() })
+        .then((data) => {
+          this.setState({ comments: data});
+        })
+  }
   render() {
     let title = this.state.editable ?
       <input type="text" ref={input => this.title = input} defaultValue={this.props.message.title} /> :
@@ -87,21 +94,18 @@ export class Message extends React.Component {
           <Modal.Content>
           <Comment.Group>
               <Header as='h4' dividing>Comment</Header>
-              {/* <Comment>
-                <Comment.Author>Author Name</Comment.Author>
-                <Comment.Text>Nice comment</Comment.Text>
-              </Comment> */}
-              {/* <ShowComments comments = {this.state.comments} /> */}
-              {
-                this.state.comments.map(comment => 
-                  <Comment>
+              {/* {
+                this.state.comments.map(comment => {
+                  {console.log(comment)}
+                    <Comment>
                     <Comment.Author>Author Name</Comment.Author>
-                <Comment.Text>{comment}</Comment.Text>
-                  </Comment>
+                <Comment.Text>{comment.comment}</Comment.Text>
+                  </Comment> 
+                }
                   )
-              }
+              } */}
+              <ShowComments comments = {this.state.comments} message = {this.props.message}/>
               <Form reply>
-                {/* <Form.TextArea /> */}
                 <textarea ref={input => this.state.formInputComment = input} />
               </Form>
             </Comment.Group>
