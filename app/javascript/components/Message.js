@@ -27,7 +27,6 @@ export class Message extends React.Component {
   }
   handleClick = () => {
     console.log("working till here")
-    document.getElementById('commentadd').innerHTML = '';
     let comment = this.state.formInputComment.value
     let body = JSON.stringify({ comment: { comment: comment, likes: 0, user_id: 1, message_id: this.props.message.id} })
     fetch('http://localhost:3000/api/v1/comments', {
@@ -74,49 +73,23 @@ export class Message extends React.Component {
             <Button onClick={() => this.props.handleDelete(this.props.message.id)} basic color='red'>
               Delete
               </Button>
-            {/* <Button basic color='blue'>Comment</Button> */}
           </div>
         </Card.Content>
         <Modal trigger={<Button>Comment</Button>} closeIcon>
          <Modal.Header>{this.props.message.title}</Modal.Header>
           <Modal.Content image scrolling>
-              {/* <Header>Modal Header</Header> */}
               <p>{this.props.message.message}</p>
-
-              {/* {_.times(8, (i) => (
-                <Image
-                  key={i}
-                  src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-                  style={{ paddingBottom: 5 }}
-                />
-              ))} */}
-            
           </Modal.Content>
           <Modal.Content>
           <Comment.Group>
               <Header as='h4' dividing>Comment</Header>
-              {/* {
-                this.state.comments.map(comment => {
-                  {console.log(comment)}
-                    <Comment>
-                    <Comment.Author>Author Name</Comment.Author>
-                <Comment.Text>{comment.comment}</Comment.Text>
-                  </Comment> 
-                }
-                  )
-              } */}
               <ShowComments comments = {this.state.comments} message = {this.props.message}/>
               <Form reply onSubmit={(e) => {e.target.reset();}}>
-                <textarea id="commentadd" ref={input => this.state.formInputComment = input} />
+                <textarea ref={input => this.state.formInputComment = input} />
                 <Button primary width={2} onClick={this.handleClick}>Post Comment</Button>
               </Form>
             </Comment.Group>
           </Modal.Content>
-          {/* <Modal.Actions>
-            <Button primary onClick={this.handleClick}>
-              Post Comment <Icon name='chevron right' />
-            </Button>
-          </Modal.Actions> */}
         </Modal>
       </React.Fragment>
     );
