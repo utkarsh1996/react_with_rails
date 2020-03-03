@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/signup' => "messages#signup"
   namespace :api do
     namespace :v1 do
+      resources :users
       resources :messages, only: [:index, :create, :destroy, :update]
       resources :comments, only: [:index, :create]
     end
