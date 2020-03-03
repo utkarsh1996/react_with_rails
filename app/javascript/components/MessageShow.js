@@ -59,11 +59,6 @@ export class MessageShow extends React.Component {
     })
   }
   updateMessage(message) {
-    // let newEditMessage = this.state.messages.filter((m) => m.id !== message.id)
-    // newEditMessage.push(message)
-    // this.setState({
-    //   messages: newEditMessage
-    // })
     let newEditMessage = []
     this.state.messages.forEach((m) => {
       if(m.id !== message.id) {
