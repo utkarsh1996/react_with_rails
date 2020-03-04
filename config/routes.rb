@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   get '/signup' => "messages#signup"
   namespace :api do
     namespace :v1 do
-      resources :users
+      resources :users, only: [:create]
+      post "/login", to: "auth#login"
+      get "/auto_login", to: "auth#auto_login"
+      get "/user_is_authed", to: "auth#user_is_authed"
       resources :messages, only: [:index, :create, :destroy, :update]
       resources :comments, only: [:index, :create]
     end

@@ -1,14 +1,26 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
-export const Signup = (props) => {
-  return (
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+export class Signup extends React.Component {
+  handleSignUp = (e) => {
+    e.preventDefault()
+    fetch('http://localhost:3000/users', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      
+    })
+  }
+  render() {
+    return (
+      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
       <Header as='h2' color='teal' textAlign='center'>
          Signup to your account
       </Header>
-      <Form size='large'>
+      <Form size='large' onSubmit = {(e) => {this.handleSignUp}}>
         <Segment stacked>
           <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' />
           <Form.Input fluid icon='user' iconPosition='left' placeholder='Email Id' />
@@ -27,8 +39,9 @@ export const Signup = (props) => {
         </Segment>
       </Form>
     </Grid.Column>
-  </Grid>    
-  )
+  </Grid> 
+    )
+  }
 }
 
 export default Signup
