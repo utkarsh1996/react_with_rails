@@ -11,27 +11,27 @@ export class Navbar extends React.Component {
   handleItemClick = () => {
     console.log("enter click")
   }
-  render () {
+  render() {
     return (
       <Menu pointing secondary>
-      <Menu.Item
-        name='Home'
-        active={this.state.activeItem === 'Home'}
-        onClick={this.handleItemClick}
-      />  
-      <Menu.Item
-        name='Profile'
-        active={this.state.activeItem === 'Profile'}
-        onClick={this.handleItemClick}
-      />
-      <Menu.Menu position='right'>
         <Menu.Item
-          name='Logout'
-          active={this.state.activeItem === 'Logout'}
+          name='Home'
+          active={this.state.activeItem === 'Home'}
           onClick={this.handleItemClick}
         />
-      </Menu.Menu>
-    </Menu>
+        <Menu.Item
+          name='Profile'
+          active={this.state.activeItem === 'Profile'}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Menu position='right'>
+          <Menu.Item
+            name='Logout'
+            active={this.state.activeItem === 'Logout'}
+            onClick={this.handleItemClick}
+          />
+        </Menu.Menu>
+      </Menu>
     );
   }
 }

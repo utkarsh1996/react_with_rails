@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Card, Button,Header, Icon, Comment, Form, Modal } from "semantic-ui-react"
+import { Card, Button, Header, Icon, Comment, Form, Modal } from "semantic-ui-react"
 import { ShowComments } from './ShowComments'
 export class Message extends React.Component {
   constructor(props) {
@@ -28,29 +28,29 @@ export class Message extends React.Component {
   handleClick = () => {
     console.log("working till here")
     let comment = this.state.formInputComment.value
-    let body = JSON.stringify({ comment: { comment: comment, likes: 0, user_id: 1, message_id: this.props.message.id} })
+    let body = JSON.stringify({ comment: { comment: comment, likes: 0, user_id: 1, message_id: this.props.message.id } })
     fetch('http://localhost:3000/api/v1/comments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: body,
-    }).then((response) => {return response.json()})
+    }).then((response) => { return response.json() })
       .then((comment) => {
         this.addNewComment(comment)
       })
   }
   addNewComment(comment) {
     this.setState({
-      comments: this.state.comments.concat(comment) 
+      comments: this.state.comments.concat(comment)
     })
   }
   componentDidMount() {
     fetch('/api/v1/comments.json')
-        .then((response) => { return response.json() })
-        .then((data) => {
-          this.setState({ comments: data});
-        })
+      .then((response) => { return response.json() })
+      .then((data) => {
+        this.setState({ comments: data });
+      })
   }
   render() {
     let title = this.state.editable ?
@@ -76,15 +76,15 @@ export class Message extends React.Component {
           </div>
         </Card.Content>
         <Modal trigger={<Button>Comment</Button>} closeIcon>
-         <Modal.Header>{this.props.message.title}</Modal.Header>
+          <Modal.Header>{this.props.message.title}</Modal.Header>
           <Modal.Content image scrolling>
-              <p>{this.props.message.message}</p>
+            <p>{this.props.message.message}</p>
           </Modal.Content>
           <Modal.Content>
-          <Comment.Group>
+            <Comment.Group>
               <Header as='h4' dividing>Comment</Header>
-              <ShowComments comments = {this.state.comments} message = {this.props.message}/>
-              <Form reply onSubmit={(e) => {e.target.reset();}}>
+              <ShowComments comments={this.state.comments} message={this.props.message} />
+              <Form reply onSubmit={(e) => { e.target.reset(); }}>
                 <textarea ref={input => this.state.formInputComment = input} />
                 <Button primary width={2} onClick={this.handleClick}>Post Comment</Button>
               </Form>

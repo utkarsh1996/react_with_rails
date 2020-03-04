@@ -1,14 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Header } from "semantic-ui-react"
-import { AllMessages} from './AllMessages'
-import { CreateMessage} from './CreateMessage'
+import { AllMessages } from './AllMessages'
+import { CreateMessage } from './CreateMessage'
 export class MessageShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages : [],
-      newMessages : []
+      messages: [],
+      newMessages: []
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.addNewMessage = this.addNewMessage.bind(this)
@@ -18,7 +18,7 @@ export class MessageShow extends React.Component {
   }
   handleFormSubmit(title, message) {
     console.log(title, message)
-    let body = JSON.stringify({ message: {title: title, message: message, user_id: 1 } })
+    let body = JSON.stringify({ message: { title: title, message: message, user_id: 1 } })
 
     fetch('http://localhost:3000/api/v1/messages', {
       method: 'POST',
@@ -26,13 +26,13 @@ export class MessageShow extends React.Component {
         'Content-Type': 'application/json'
       },
       body: body,
-    }).then((response) => {return response.json()})
+    }).then((response) => { return response.json() })
       .then((message) => {
         this.addNewMessage(message)
       })
   }
   handleDelete(id) {
-    fetch(`http://localhost:3000/api/v1/messages/${id}`,{
+    fetch(`http://localhost:3000/api/v1/messages/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -48,12 +48,12 @@ export class MessageShow extends React.Component {
     })
   }
   handleUpdate(message) {
-    fetch(`http://localhost:3000/api/v1/messages/${message.id}`,{
+    fetch(`http://localhost:3000/api/v1/messages/${message.id}`, {
       method: 'PUT',
-      body: JSON.stringify({message: message}),
+      body: JSON.stringify({ message: message }),
       headers: {
         'Content-Type': 'application/json'
-      } 
+      }
     }).then((response) => {
       this.updateMessage(message)
     })
@@ -61,11 +61,11 @@ export class MessageShow extends React.Component {
   updateMessage(message) {
     let newEditMessage = []
     this.state.messages.forEach((m) => {
-      if(m.id !== message.id) {
+      if (m.id !== message.id) {
         newEditMessage.push(m);
       }
       else {
-        newEditMessage.push(message) ;
+        newEditMessage.push(message);
       }
     })
     this.setState({
@@ -79,19 +79,20 @@ export class MessageShow extends React.Component {
   }
   componentDidMount() {
     fetch('/api/v1/messages.json')
-       .then((response) => { return response.json() })
-       .then((data) => { 
-         this.setState({ messages: data }) });
+      .then((response) => { return response.json() })
+      .then((data) => {
+        this.setState({ messages: data })
+      });
   }
-  render () {
+  render() {
     return (
       <React.Fragment>
-        <div style = {{padding:"1%"}}>
-        <CreateMessage handleFormSubmit = {this.handleFormSubmit} />
-        <Header as='h3' dividing>
-         My Message
+        <div style={{ padding: "1%" }}>
+          <CreateMessage handleFormSubmit={this.handleFormSubmit} />
+          <Header as='h3' dividing>
+            My Message
         </Header>
-        <AllMessages messages = { this.state.messages} handleDelete = {this.handleDelete} handleUpdate={this.handleUpdate}/>
+          <AllMessages messages={this.state.messages} handleDelete={this.handleDelete} handleUpdate={this.handleUpdate} />
         </div>
       </React.Fragment>
     );

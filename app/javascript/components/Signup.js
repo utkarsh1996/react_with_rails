@@ -17,41 +17,41 @@ export class Signup extends React.Component {
         password
       })
     })
-    .then(resp => resp.json())
-    .then(data => {
-      localStorage.setItem("token", data.jwt)
-      this.props.handleLogin(data.user)
-    })
+      .then(resp => resp.json())
+      .then(data => {
+        localStorage.setItem("token", data.jwt)
+        this.props.handleLogin(data.user)
+      })
     setEmail("")
     setPassword("")
   }
   render() {
     return (
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <Header as='h2' color='teal' textAlign='center'>
-         Signup to your account
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as='h2' color='teal' textAlign='center'>
+            Signup to your account
       </Header>
-      <Form size='large' onSubmit = {(e) => {this.handleSignUp}}>
-        <Segment stacked>
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' />
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='Email Id' />
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='Phone Number' />
-          <Form.Input
-            fluid
-            icon='lock'
-            iconPosition='left'
-            placeholder='Password'
-            type='password'
-          />
+          <Form size='large' onSubmit={(e) => { this.handleSignUp }}>
+            <Segment stacked>
+              <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' />
+              <Form.Input fluid icon='user' iconPosition='left' placeholder='Email Id' />
+              <Form.Input fluid icon='user' iconPosition='left' placeholder='Phone Number' />
+              <Form.Input
+                fluid
+                icon='lock'
+                iconPosition='left'
+                placeholder='Password'
+                type='password'
+              />
 
-          <Button color='teal' fluid size='large'>
-            Signup
+              <Button color='teal' fluid size='large'>
+                Signup
           </Button>
-        </Segment>
-      </Form>
-    </Grid.Column>
-  </Grid> 
+            </Segment>
+          </Form>
+        </Grid.Column>
+      </Grid>
     )
   }
 }
