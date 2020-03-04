@@ -1,17 +1,29 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 export class Signup extends React.Component {
   handleSignUp = (e) => {
     e.preventDefault()
-    fetch('http://localhost:3000/users', {
+    fetch('http://localhost:3000/api/v1/users', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        password
+      })
     })
+    .then(resp => resp.json())
+    .then(data => {
+      localStorage.setItem("token", data.jwt)
+      this.props.handleLogin(data.user)
+    })
+    setEmail("")
+    setPassword("")
   }
   render() {
     return (
