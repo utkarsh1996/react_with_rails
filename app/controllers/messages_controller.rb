@@ -1,8 +1,10 @@
 class MessagesController < ApplicationController
-    skip_before_action :require_login, :only => [:signup, :login]
+    # skip_before_action :require_login, :only => [:signup, :login]
     def index
     end
     def login
+    end
+    def profile
     end
     def signup
     end
