@@ -8,7 +8,8 @@ export class MessageShow extends React.Component {
     super(props);
     this.state = {
       messages: [],
-      newMessages: []
+      newMessages: [],
+      current_user: {}
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.addNewMessage = this.addNewMessage.bind(this)
@@ -18,7 +19,7 @@ export class MessageShow extends React.Component {
   }
   handleFormSubmit(title, message) {
     console.log(title, message)
-    let body = JSON.stringify({ message: { title: title, message: message, user_id: 1 } })
+    let body = JSON.stringify({ message: { title: title, message: message, user_id: this.state.current_user.id } })
 
     fetch('http://localhost:3000/api/v1/messages', {
       method: 'POST',
@@ -81,7 +82,10 @@ export class MessageShow extends React.Component {
     fetch('/api/v1/messages.json')
       .then((response) => { return response.json() })
       .then((data) => {
-        this.setState({ messages: data })
+        this.setState({ 
+          messages: data.messages,
+          current_user: data.current_user
+        })
       });
   }
   render() {
@@ -92,7 +96,7 @@ export class MessageShow extends React.Component {
           <Header as='h3' dividing>
             My Message
         </Header>
-          <AllMessages messages={this.state.messages} handleDelete={this.handleDelete} handleUpdate={this.handleUpdate} />
+          <AllMessages messages={this.state.messages} current_user = {this.state.current_user} handleDelete={this.handleDelete} handleUpdate={this.handleUpdate} />
         </div>
       </React.Fragment>
     );

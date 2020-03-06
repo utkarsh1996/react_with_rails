@@ -18,7 +18,7 @@ export class Message extends React.Component {
       let title = this.title.value
       let message = this.message.value
       let id = this.props.message.id
-      let msg = { id: id, title: title, message: message, user_id: 1 }
+      let msg = { id: id, title: title, message: message, user_id: this.props.current_user.id }
       this.props.handleUpdate(msg)
     }
     this.setState({
@@ -28,7 +28,7 @@ export class Message extends React.Component {
   handleClick = () => {
     console.log("working till here")
     let comment = this.state.formInputComment.value
-    let body = JSON.stringify({ comment: { comment: comment, likes: 0, user_id: 1, message_id: this.props.message.id } })
+    let body = JSON.stringify({ comment: { comment: comment, likes: 0, user_id: this.props.current_user.id, message_id: this.props.message.id } })
     fetch('http://localhost:3000/api/v1/comments', {
       method: 'POST',
       headers: {
@@ -83,7 +83,7 @@ export class Message extends React.Component {
           <Modal.Content>
             <Comment.Group>
               <Header as='h4' dividing>Comment</Header>
-              <ShowComments comments={this.state.comments} message={this.props.message} />
+              <ShowComments comments={this.state.comments} message={this.props.message} current_user={this.props.current_user}/>
               <Form reply onSubmit={(e) => { e.target.reset(); }}>
                 <textarea ref={input => this.state.formInputComment = input} />
                 <Button primary width={2} onClick={this.handleClick}>Post Comment</Button>

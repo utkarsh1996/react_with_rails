@@ -3,7 +3,10 @@ module Api
     class MessagesController < ApplicationController
       def index
         messages = Message.all
-        render json: messages
+        render json: {
+          messages: messages, 
+          current_user: current_user
+        }
       end
       def create
         message = Message.create(message_params)
