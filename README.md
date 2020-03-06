@@ -18,7 +18,7 @@ RUN ->"bundle i" -- this will install all the rails gems needed in the project
 4) in third terminal open your mysql server.
 
 
-login singup is done by using the devise gem.
+login signup is done by using the devise gem.
 
 
 
