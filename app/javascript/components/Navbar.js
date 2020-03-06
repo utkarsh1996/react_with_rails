@@ -26,7 +26,9 @@ export class Navbar extends React.Component {
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-Token': token
       },
-    }).then((response) => { return response.json() })
+    }).then((response) => { 
+      window.location = HOME_URL
+      return response.json() })
       .then((user) => {
         window.location = HOME_URL
       })

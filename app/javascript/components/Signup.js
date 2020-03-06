@@ -31,9 +31,11 @@ export class Signup extends React.Component {
         'X-CSRF-Token': token
       },
       body: body,
-    }).then((response) => { return response.json() })
+    }).then((response) => { 
+      window.location = HOME_URL
+      return response.json() })
       .then((user) => {
-        window.location = HOME_URL
+        console.log("error")
       })
   }
   render() {

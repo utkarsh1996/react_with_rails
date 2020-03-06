@@ -23,9 +23,12 @@ export class Login extends React.Component {
         'X-CSRF-Token': token
       },
       body: body,
-    }).then((response) => { return response.json() })
+    }).then((response) => {
+       console.log("first then")
+       window.location.href = HOME_URL
+       return response.json() })
       .then((user) => {
-        window.location.href = HOME_URL
+        console.log('here')
       })
   }
 
