@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery with: :null_session
-    before_action :authenticate_user!, :only => [:login]
+    before_action :authenticate_user!, :only => [:login,:signup,:index]
     def index
     end
     # def encode_token(payload)

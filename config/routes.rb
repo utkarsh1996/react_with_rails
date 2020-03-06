@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/home' => "messages#index"
@@ -16,5 +17,5 @@ Rails.application.routes.draw do
       resources :comments, only: [:index, :create]
     end
   end
-  root "messages#login"
+  root "messages#index"
 end
